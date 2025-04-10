@@ -79,13 +79,13 @@ app.post('/campgrounds', validateCampground, catchAsync(async (req, res, next) =
 // Show Campground Route (Details) (Read)
 app.get('/campgrounds/:id', catchAsync(async (req, res) => {
     const { id } = req.params;
-    const campground = await Campground.findById(id);
+    const campground = await Campground.findById(id).populate('reviews');
     res.render('campgrounds/show', { campground });
 }));
 
 // Edit Campground Form Route (Update)
 app.get('/campgrounds/:id/edit', catchAsync(async (req, res) => {
-    const campground = await Campground.findById(req.params.id);
+    const campground = await Campground.findById(req.params.id).populate('reviews');
     res.render('campgrounds/edit', { campground })
 }));
 
